@@ -6,8 +6,17 @@ variable "region" {
   default = "ap-northeast-2"
 }
 
-variable "vpc_id" {
-  description = "exists vpc id"
+variable "eks_admin_ids" {
+  description = "IAM 사용자 ID 리스트"
+  type        = list(string)  # 문자열 리스트 형태로 정의
+}
+
+# variable "vpc_id" {
+#   description = "exists vpc id"
+# }
+
+variable "k8s_version" {
+  description = "kubernetes version"
 }
 
 

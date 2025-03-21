@@ -2,4 +2,5 @@
 # std.tfvars
 phase = "std"
 region = "ap-northeast-2"
-vpc_id = "vpc-15ca2b7c"
+k8s_version = "1.32"
+eks_admin_ids = ["lhysin", "jeonyb"]
