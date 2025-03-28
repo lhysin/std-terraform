@@ -64,7 +64,7 @@ terraform init -backend-config ./env/backend-dev.tfvars
 terraform init -backend-config ./env/backend-prd.tfvars
 
 # terraform 초기화 재설정
-terraform init -reconfigure -backend-config ./env/backend-dev.tfvars
+terraform init -reconfigure -backend-config ./env/backend-std.tfvars
 
 # 활성화된 backend 확인
 cat .terraform/terraform.tfstate | grep '"bucket"'
