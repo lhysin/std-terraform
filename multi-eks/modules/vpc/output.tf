@@ -32,3 +32,8 @@ output "default_vpc_cidr_block" {
   description = "The CIDR block of the VPC"
   value       = module.vpc.default_vpc_cidr_block
 }
+
+output "azs" {
+  description = "A list of availability zones specified as argument to this module"
+  value = module.vpc.azs
+}

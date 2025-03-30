@@ -17,13 +17,19 @@ variable "region" {
 }
 
 variable "azs" {
-  description = "Aws Availability Zones"
-  type        = list(string)
-  default     = ["a", "b"]
+  description = "A list of short availability zone identifiers (e.g., 'a', 'b', etc.) corresponding to the actual AWS availability zones in the region."
+  type = list(string)
+  default = ["a", "b"]
 }
 
 variable "vpc_cidr" {
   description = "CIDR block for VPC"
   type        = string
   default     = "10.0.0.0/16"
+}
+
+variable "route53_domain_name" {
+  description = ""
+  type        = string
+  default     = "cjenm-study.com"
 }

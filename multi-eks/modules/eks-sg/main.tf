@@ -2,7 +2,7 @@ module "cluster_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 5.3.0"
 
-  name   = "${var.service_name_prefix}-cluster-sg-${var.service_name_suffix}"
+  name   = "${var.service_name_prefix}-eks-sg-${var.service_name_suffix}"
   vpc_id = var.vpc_id
 
   # Ingress rules allowing traffic from specific security groups

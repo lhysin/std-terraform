@@ -6,3 +6,4 @@
 # terraform init -backend-config ./env/backend-std.tfvars
 terraform {
   backend "s3" {}
+}

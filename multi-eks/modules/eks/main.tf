@@ -1,13 +1,36 @@
+data "terraform_remote_state" "shared" {
+  backend = "s3"
+  config = {
+    region  = var.region
+    profile = var.profile
+    bucket  = var.terraform_state_s3_bucket
+    key     = var.terraform_state_s3_key
+  }
+}
+
+# 이미 등록된 호스팅 존 정보 가져오기
+data "aws_route53_zone" "target_hosted_zone" {
+  name = "${var.route53_domain_name}." # 대상 도메인 (마침표로 끝나는 FQDN 형식)
+}
+
+
+locals {
+  vpc_id          = data.terraform_remote_state.shared.outputs.vpc_id
+  public_subnets  = data.terraform_remote_state.shared.outputs.public_subnets[var.vpc_group]
+  private_subnets = data.terraform_remote_state.shared.outputs.private_subnets[var.vpc_group]
+  intra_subnets   = data.terraform_remote_state.shared.outputs.intra_subnets[var.vpc_group]
+}
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.34.0"
 
-  cluster_name    = "${var.service_name_prefix}-eks"
+  cluster_name    = "${var.service_name_prefix}-${var.vpc_group}-eks"
   cluster_version = var.k8s_version
 
-  vpc_id     = var.vpc_id
-  subnet_ids = var.private_subnets
-  control_plane_subnet_ids = var.intra_subnets
+  vpc_id     = local.vpc_id
+  subnet_ids = local.private_subnets
+  control_plane_subnet_ids = local.intra_subnets
 
   # https://stackoverflow.com/questions/79270303/eks-cluster-with-managed-nodegroups-in-private-subnets-fail-with-instances-fail
   bootstrap_self_managed_addons = true
@@ -36,14 +59,15 @@ module "eks" {
   eks_managed_node_groups = {
     "${var.service_name_prefix}-eks-ng" = {
       # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
-      #ami_type      = "AL2023_x86_64_STANDARD"
-      ami_type      = "AL2_ARM_64"
-      instance_types = ["t4g.medium"]
+      ami_type      = "AL2023_x86_64_STANDARD"
+      instance_types = ["t3.medium"]
+      #ami_type      = "AL2_ARM_64"
+      #instance_types = ["t4g.medium"]
       # ON_DEMAND(default), SPOT
       capacity_type = "SPOT"
-      min_size      = 2
+      min_size      = 1
       max_size      = 4
-      desired_size  = 2
+      desired_size  = 1
     }
   }
 
@@ -64,6 +88,11 @@ module "mgmt_eks_blueprints_addons" {
   oidc_provider_arn = module.eks.oidc_provider_arn
 
   enable_argocd = true
+  argocd = {
+    # https://stackoverflow.com/questions/72903973/how-do-i-add-users-to-argo-cd-using-terraform-resource
+    "configs.cm.create"            = true
+    "configs.cm.accounts.new-user" = "apiKey, login"
+  }
 
   enable_aws_cloudwatch_metrics = true
   enable_metrics_server         = true
@@ -83,8 +112,8 @@ module "mgmt_eks_blueprints_addons" {
     ]
   }
 
-  #   enable_cert_manager = true
-  #   cert_manager_route53_hosted_zone_arns = [data.aws_route53_zone.target_hosted_zone.arn]
+  # enable_cert_manager = true
+  # cert_manager_route53_hosted_zone_arns = [data.aws_route53_zone.target_hosted_zone.arn]
   #
   #   enable_external_dns = true
   #   external_dns_route53_zone_arns = [data.aws_route53_zone.target_hosted_zone.arn]
@@ -106,27 +135,3 @@ module "mgmt_eks_blueprints_addons" {
 
   tags = var.tags
 }
-
-
-# kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo
-# 최초 로그인 이후 xharhdiddl!@# (톰고양이123)으로 변경
-
-
-# data "aws_lb" "eks_alb_argo_cd" {
-#   tags = {
-#     "ingress.k8s.aws/stack" = "${local.argo_cd_ingress_namespace}/${local.argo_cd_ingress_name}"
-#   }
-#   depends_on = [kubernetes_ingress_v1.argocd_ingress]
-# }
-#
-#
-# resource "aws_route53_record" "argo_cd_cname" {
-#   zone_id = data.aws_route53_zone.target_hosted_zone.zone_id
-#   name    = "eks-test-argocd.${var.route53_domain_name}"
-#   type    = "CNAME"
-#   ttl     = 60
-#   records = [data.aws_lb.eks_alb_argo_cd.dns_name]
-#   depends_on = [
-#     data.aws_lb.eks_alb_argo_cd
-#   ]
-# }

@@ -57,6 +57,13 @@ terraform destory -auto-approve
 # study
 terraform init -backend-config ./env/backend-std.tfvars
 
+terraform init \
+  -backend-config="bucket=cjo-std-s3-terraform-state" \
+  -backend-config="key=multi-eks/shared/std/terraform.tfstate" \
+  -backend-config="region=ap-northeast-2" \
+  -backend-config="encrypt=true" \
+  -backend-config="dynamodb_table=cjo-std-ddb-terraform-state"
+
 # dev
 terraform init -backend-config ./env/backend-dev.tfvars
 

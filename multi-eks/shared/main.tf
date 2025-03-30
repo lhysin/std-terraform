@@ -22,7 +22,7 @@ module "vpc" {
   tags                = module.vars.service_tags
 }
 
-module "sg" {
+module "eks_sg" {
   source              = "../modules/eks-sg"
   service_name_prefix = module.vars.service_name_prefix
   service_name_suffix = module.vars.service_name_suffix
