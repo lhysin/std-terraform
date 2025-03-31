@@ -1,3 +1,0 @@
-variable "phase" {
-  description = "Phase"
-}
