@@ -1,0 +1,3 @@
+variable "phase" {
+  description = "Phase"
+}
