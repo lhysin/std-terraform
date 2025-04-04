@@ -34,22 +34,41 @@ module "eks_sg" {
   ]
 }
 
-module "rancher" {
-  source              = "../modules/rancher"
-  service_name_prefix = module.vars.service_name_prefix
-  service_name_suffix = module.vars.service_name_suffix
-  vpc_id = module.vpc.vpc_id
-  public_subnets = module.vpc.public_subnets
-  alb_cjenm_only_ingress_sg_id = module.eks_sg.alb_cjenm_only_ingress_sg_id
-  route53_domain_name = var.route53_domain_name
+# module "rancher" {
+#   source              = "../modules/rancher"
+#   service_name_prefix = module.vars.service_name_prefix
+#   service_name_suffix = module.vars.service_name_suffix
+#   vpc_id = module.vpc.vpc_id
+#   public_subnets = module.vpc.public_subnets
+#   alb_cjenm_only_ingress_sg_id = module.eks_sg.alb_cjenm_only_ingress_sg_id
+#   route53_domain_name = var.route53_domain_name
+#
+#   tags                = module.vars.service_tags
+#
+#   depends_on = [
+#     module.vpc,
+#     module.eks_sg
+#   ]
+#   ssh_sg_id = module.eks_sg.ssh_sg_id
+#   alb_ingress_sg_id = module.eks_sg.alb_ingress_sg_id
+# }
 
-  tags                = module.vars.service_tags
-
-  depends_on = [
-    module.vpc,
-    module.eks_sg
-  ]
-  ssh_sg_id = module.eks_sg.ssh_sg_id
-  alb_ingress_sg_id = module.eks_sg.alb_ingress_sg_id
-}
+# module "argocd" {
+#   source              = "../modules/argo-k3d"
+#   service_name_prefix = module.vars.service_name_prefix
+#   service_name_suffix = module.vars.service_name_suffix
+#   vpc_id = module.vpc.vpc_id
+#   public_subnets = module.vpc.public_subnets
+#   alb_cjenm_only_ingress_sg_id = module.eks_sg.alb_cjenm_only_ingress_sg_id
+#   route53_domain_name = var.route53_domain_name
+#
+#   tags                = module.vars.service_tags
+#
+#   depends_on = [
+#     module.vpc,
+#     module.eks_sg
+#   ]
+#   ssh_sg_id = module.eks_sg.ssh_sg_id
+#   alb_ingress_sg_id = module.eks_sg.alb_ingress_sg_id
+# }
 

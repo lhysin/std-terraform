@@ -1,5 +1,5 @@
 locals {
-  service_name_prefix = "cjos-${var.phase}"
+  service_name_prefix = "cjo-${var.phase}"
   service_name_suffix = "eks"
   service_kor_desc    = "${upper(var.phase)} EKS 스터디"
 

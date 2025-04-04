@@ -4,8 +4,10 @@ locals {
 
   # 각 서브넷 타입에 대한 인덱스 설정
   subnet_indices = {
-    public  = [1, 2, 3, 4]  # 퍼블릭 서브넷 인덱스
-    private = [5, 6, 7, 8]  # 프라이빗 서브넷 인덱스
+#     public  = [1, 2, 3, 4]  # 퍼블릭 서브넷 인덱스
+#     private = [5, 6, 7, 8]  # 프라이빗 서브넷 인덱스
+    public  = [1, 2, ]  # 퍼블릭 서브넷 인덱스
+    private = [3, 4]  # 프라이빗 서브넷 인덱스
   }
 }
 
@@ -58,12 +60,12 @@ module "vpc" {
 
   public_subnet_tags = merge(var.tags, {
     Name = "${var.service_name_prefix}-pub-sub-${var.service_name_suffix}"
-    #"kubernetes.io/role/elb" = 1
+    "kubernetes.io/role/elb" = 1
   })
 
   private_subnet_tags = merge(var.tags, {
     Name = "${var.service_name_prefix}-pri-sub-${var.service_name_suffix}"
-    #"kubernetes.io/role/internal-elb" = 1
+    "kubernetes.io/role/internal-elb" = 1
   })
 
   public_route_table_tags = merge(var.tags, {

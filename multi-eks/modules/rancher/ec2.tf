@@ -28,57 +28,19 @@ resource "aws_instance" "ec2_rancher" {
               sudo docker logs $(sudo docker ps -q --filter ancestor=rancher/rancher) 2>&1 | grep "Bootstrap Password:"
               EOF
 
+  # cat /var/log/cloud-init.log
+
   subnet_id              = var.public_subnets[0]
   security_groups        = [var.ssh_sg_id, var.alb_ingress_sg_id]
   associate_public_ip_address = true
-  iam_instance_profile   = aws_iam_instance_profile.rancher_instance_profile.name
 
   tags = merge(var.tags, {
     Name = "${var.service_name_prefix}-ec2-rancher"
   })
-}
 
-resource "aws_iam_instance_profile" "rancher_instance_profile" {
-  name = "${var.service_name_prefix}-ec2-profile-rancher"
-  role = aws_iam_role.rancher_role.name
-}
-
-resource "aws_iam_role" "rancher_role" {
-  name               = "${var.service_name_prefix}-ec2-role-rancher"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action    = "sts:AssumeRole"
-        Principal = { Service = "ec2.amazonaws.com" }
-        Effect    = "Allow"
-      }
+  lifecycle {
+    ignore_changes = [
+      security_groups
     ]
-  })
-}
-
-resource "aws_iam_policy" "eks_policy" {
-  name        = "${var.service_name_prefix}-ec2-policy-rancher"
-  description = "Policy for Rancher EC2 to manage EKS clusters"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action   = ["eks:DescribeCluster", "eks:ListClusters", "eks:ListUpdates"]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-      {
-        Action   = "iam:ListRoles"
-        Effect   = "Allow"
-        Resource = "*"
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "rancher_policy_attachment" {
-  policy_arn = aws_iam_policy.eks_policy.arn
-  role       = aws_iam_role.rancher_role.name
+  }
 }

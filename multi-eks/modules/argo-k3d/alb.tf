@@ -2,8 +2,8 @@ data "aws_acm_certificate" "seoul_wildcard_cert" {
   domain = "*.${var.route53_domain_name}"
 }
 
-resource "aws_lb" "alb_rancher" {
-  name               = "${var.service_name_prefix}-alb-rancher"
+resource "aws_lb" "alb_argocd" {
+  name               = "${var.service_name_prefix}-alb-argocd"
   internal           = false
   load_balancer_type = "application"
   # eks 보안그룹 필요
@@ -17,7 +17,7 @@ resource "aws_lb" "alb_rancher" {
 }
 
 resource "aws_lb_listener" "https_listener" {
-  load_balancer_arn = aws_lb.alb_rancher.arn
+  load_balancer_arn = aws_lb.alb_argocd.arn
   port              = 443
   protocol          = "HTTPS"
 
@@ -26,24 +26,24 @@ resource "aws_lb_listener" "https_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.alb_tg_rancher.arn  # 타겟 그룹 ARN
+    target_group_arn = aws_lb_target_group.alb_tg_argocd.arn  # 타겟 그룹 ARN
   }
 }
 
-resource "aws_alb_target_group_attachment" "alb_target_group_att_rancher" {
-  target_group_arn = aws_lb_target_group.alb_tg_rancher.arn
-  target_id        = aws_instance.ec2_rancher.id
+resource "aws_alb_target_group_attachment" "alb_target_group_att_argocd" {
+  target_group_arn = aws_lb_target_group.alb_tg_argocd.arn
+  target_id        = aws_instance.ec2_argocd.id
 }
 
-resource "aws_lb_target_group" "alb_tg_rancher" {
-  name        = "${var.service_name_prefix}-alb-tg-rancher"
+resource "aws_lb_target_group" "alb_tg_argocd" {
+  name        = "${var.service_name_prefix}-alb-tg-argocd"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "instance"
 
   health_check {
-    path                = "/healthz"              # Rancher 헬스체크 경로
+    path                = "/healthz"              # argocd 헬스체크 경로
     interval            = 30                       # 헬스체크 간격
     timeout             = 3                        # 헬스체크 타임아웃
     healthy_threshold   = 3                        # 건강한 상태로 간주되는 연속 헬스체크 횟수
@@ -59,12 +59,12 @@ data "aws_route53_zone" "target_hosted_zone" {
 
 resource "aws_route53_record" "alb_record" {
   zone_id = data.aws_route53_zone.target_hosted_zone.id
-  name    = "eks-test-rancher.${var.route53_domain_name}"
+  name    = "eks-test-argocd.${var.route53_domain_name}"
   type    = "A"
 
   alias {
-    name                   = aws_lb.alb_rancher.dns_name
-    zone_id                = aws_lb.alb_rancher.zone_id
+    name                   = aws_lb.alb_argocd.dns_name
+    zone_id                = aws_lb.alb_argocd.zone_id
     evaluate_target_health = true
   }
 }

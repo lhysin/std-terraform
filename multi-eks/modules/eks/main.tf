@@ -16,15 +16,15 @@ data "aws_route53_zone" "target_hosted_zone" {
 
 locals {
   vpc_id          = data.terraform_remote_state.shared.outputs.vpc_id
-  public_subnets  = data.terraform_remote_state.shared.outputs.public_subnets[var.vpc_group]
-  private_subnets = data.terraform_remote_state.shared.outputs.private_subnets[var.vpc_group]
+  public_subnets  = data.terraform_remote_state.shared.outputs.public_subnets
+  private_subnets = data.terraform_remote_state.shared.outputs.private_subnets
 }
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.34.0"
 
-  cluster_name    = "${var.service_name_prefix}-${var.vpc_group}-eks"
+  cluster_name    = "${var.service_name_prefix}-${var.eks_suffix_name}-eks"
   cluster_version = var.k8s_version
 
   vpc_id     = local.vpc_id
@@ -58,10 +58,10 @@ module "eks" {
   eks_managed_node_groups = {
     "${var.service_name_prefix}-eks-ng" = {
       # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
-      ami_type      = "AL2023_x86_64_STANDARD"
-      instance_types = ["t3.medium"]
-#       ami_type      = "AL2_ARM_64"
-#       instance_types = ["t4g.medium"]
+#       ami_type      = "AL2023_x86_64_STANDARD"
+#       instance_types = ["t3.medium"]
+      ami_type      = "AL2_ARM_64"
+      instance_types = ["t4g.medium"]
       # ON_DEMAND(default), SPOT
       capacity_type = "SPOT"
       min_size      = 1

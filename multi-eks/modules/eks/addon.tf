@@ -7,12 +7,12 @@ module "mgmt_eks_blueprints_addons" {
   cluster_version   = module.eks.cluster_version
   oidc_provider_arn = module.eks.oidc_provider_arn
 
-  enable_argocd = true
-  argocd = {
-    # https://stackoverflow.com/questions/72903973/how-do-i-add-users-to-argo-cd-using-terraform-resource
-    "configs.cm.create"            = true
-    "configs.cm.accounts.new-user" = "apiKey, login"
-  }
+#   enable_argocd = true
+#   argocd = {
+#     # https://stackoverflow.com/questions/72903973/how-do-i-add-users-to-argo-cd-using-terraform-resource
+#     "configs.cm.create"            = true
+#     "configs.cm.accounts.new-user" = "apiKey, login"
+#   }
 
   enable_aws_cloudwatch_metrics = true
   enable_metrics_server         = true

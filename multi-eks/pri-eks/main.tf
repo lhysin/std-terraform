@@ -17,7 +17,7 @@ module "eks" {
   terraform_state_s3_key    = var.terraform_state_s3_key
   service_name_prefix       = module.vars.service_name_prefix
   tags                      = module.vars.service_tags
-  vpc_group                 = "pri"
+  eks_suffix_name           = "pri"
   route53_domain_name       = "cjenm-study.com"
 }
 

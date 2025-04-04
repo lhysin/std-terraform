@@ -1,44 +1,41 @@
-variable "service_name_prefix" {
-  description = "Service Name Prefix"
-  type        = string
-}
-
 variable "profile" {
   description = "AWS profile"
   type        = string
+  default     = "cjenm-itarch"
+}
+
+variable "phase" {
+  description = "Phase"
+  type        = string
+  default     = "std"
 }
 
 variable "region" {
-  description = "AWS Region"
+  description = "Aws Region"
   type        = string
-}
-
-variable "eks_suffix_name" {
-  description = "Defines the VPC group for EKS multi-cluster environment."
-  type        = string
-}
-
-variable "terraform_state_s3_bucket" {
-  description = "The name of the S3 bucket where Terraform state files are stored."
-  type        = string
-}
-
-variable "terraform_state_s3_key" {
-  description = "The path (key) to the specific Terraform state file within the S3 bucket."
-  type        = string
+  default     = "ap-northeast-2"
 }
 
 variable "k8s_version" {
   description = "Kubernetes version"
   type        = string
+  default     = "1.31"
 }
 
-variable "tags" {
-  description = "A map of tags to add to all resources"
-  type = map(string)
+variable "terraform_state_s3_bucket" {
+  description = "The name of the S3 bucket where Terraform state files are stored."
+  type        = string
+  default     = "cjo-std-s3-terraform-state"
+}
+
+variable "terraform_state_s3_key" {
+  description = "The path (key) to the specific Terraform state file within the S3 bucket."
+  type        = string
+  default     = "multi-eks/shared/std/terraform.tfstate"
 }
 
 variable "route53_domain_name" {
   description = ""
   type = string
+  default = "cjenm-study.com"
 }
