@@ -8,7 +8,7 @@ locals {
   alb_cjenm_only_ingress_sg_id = data.terraform_remote_state.shared.outputs.alb_cjenm_only_ingress_sg_id
 }
 
-module "mgmt_eks_blueprints_addons" {
+module "eks_blueprint_argocd" {
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.20.0"
 
@@ -18,7 +18,6 @@ module "mgmt_eks_blueprints_addons" {
   oidc_provider_arn = module.eks.oidc_provider_arn
 
   enable_argocd = true
-  enable_aws_efs_csi_driver = true
 
   depends_on = [
     module.eks
@@ -74,7 +73,7 @@ resource "kubernetes_ingress_v1" "argocd_ingress" {
   }
 
   depends_on = [
-    module.mgmt_eks_blueprints_addons,
+    module.eks_blueprint_argocd,
     //kubectl_manifest.guestbook_application
   ]
 }
