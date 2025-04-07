@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/lhysin/std-terraform.git
+        revision: HEAD
+        directories:
+          - path: multi-eks/example-apps/apps/*
+  template:
+    metadata:
+      name: "{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/lhysin/std-terraform.git
+        targetRevision: HEAD
+        path: "{{path}}"
+      destination:
+        server: https://46978DC3F39D83A28D4A8BE75962A16C.yl4.ap-northeast-2.eks.amazonaws.com
+        namespace: ontrust
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
