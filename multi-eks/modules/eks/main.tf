@@ -67,10 +67,18 @@ module "eks" {
       min_size      = 1
       max_size      = 4
       desired_size  = 2
+
+      node_role_arn = ""
     }
   }
 
   tags = var.tags
+  iam_role_tags = var.tags
+  iam_role_use_name_prefix = var.service_name_prefix
+  cluster_encryption_policy_use_name_prefix = var.service_name_prefix
+  cluster_security_group_use_name_prefix = var.service_name_prefix
+  node_iam_role_use_name_prefix = var.service_name_prefix
+  node_security_group_use_name_prefix = var.service_name_prefix
 }
 
 data "aws_eks_cluster_auth" "cluster_auth" {
