@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: or-cst-svc
+  labels:
+    app: or-cst-svc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: or-cst-svc
+  template:
+    metadata:
+      labels:
+        app: or-cst-svc
+    spec:
+      serviceAccountName: ecr-reader
+      containers:
+        - name: or-cst-svc
+          image: 627500151784.dkr.ecr.ap-northeast-2.amazonaws.com/cjo-std-ecr-ontrust:or-cst-svc
+          ports:
+            - containerPort: 8080

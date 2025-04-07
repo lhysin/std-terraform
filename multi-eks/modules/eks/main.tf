@@ -47,8 +47,8 @@ module "eks" {
     ingress_argo = {
       description = "Allow ArgoCD access"
       protocol    = "tcp"
-      from_port   = 443
-      to_port     = 443
+      from_port   = 8080
+      to_port     = 8080
       cidr_blocks = ["0.0.0.0/0"]
       type        = "ingress"
     }
