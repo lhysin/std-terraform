@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bff-api-config
+data:
+  route-config.yml: |
+    bff:
+      httpclient:
+        clients:
+          test1:
+            base-url: http://demo2409875.mockable.io
+            response-timeout: 2s
+          test2:
+            base-url: http://demo2409875.mockable.io
+            response-timeout: 3s
+          test3:
+            base-url: http://demo2409875.mockable.io
+
+      routes:
+        - id: a-service
+          predicates:
+            - name: methodPredicate
+              args: GET
+            - name: pathPredicate
+              args: /v3/**
+          route-pattern:
+            type: COMPOSITION
+            composition:
+              sources:
+                - name: bbb-service
+                  client-id: test2
+                  method: GET
+                  uri: /v3/test2/item/12300002
+                - name: aaa-service
+                  client-id: test1
+                  method: GET
+                  uri: /v3/test1
+
+        - id: b-service
+          predicates:
+            - name: pathPredicate
+              args: /v2/**
+          route-pattern:
+            type: ROUTE
+            process:
+              client-id : test1
+
+        - id: c-service
+          predicates:
+            - name: pathPredicate
+              args: /v3/custom/**
+          route-pattern:
+            type: CUSTOM
+            custom:
+              custom-handler: customProcessHandler
+
+        - id: d-service
+          predicates:
+            - name: pathPredicate
+              args: /v1/custom/**
+          route-pattern:
+            type: CUSTOM
+            custom:
+              custom-handler: customProcessHandler2

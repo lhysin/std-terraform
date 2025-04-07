@@ -42,3 +42,8 @@ variable "route53_domain_name" {
   description = ""
   type = string
 }
+
+variable "enable_ontrust_ingress" {
+  type = bool
+  default = false
+}

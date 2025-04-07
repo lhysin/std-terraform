@@ -19,6 +19,7 @@ module "eks" {
   tags                      = module.vars.service_tags
   eks_suffix_name           = "pri"
   route53_domain_name       = "cjenm-study.com"
+  enable_ontrust_ingress    = true
 }
 
 provider "kubernetes" {
