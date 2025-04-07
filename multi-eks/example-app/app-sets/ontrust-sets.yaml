@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/lhysin/std-terraform.git
         revision: HEAD
         directories:
-          - path: multi-eks/example-apps/apps/*
+          - path: multi-eks/example-app/apps/*
   template:
     metadata:
       name: "{{path.basename}}"
@@ -26,3 +26,4 @@ spec:
         automated:
           prune: true
           selfHeal: true
+# kubectl apply -f https://raw.githubusercontent.com/lhysin/std-terraform/refs/heads/main/multi-eks/example-app/app-sets/ontrust-sets.yaml
