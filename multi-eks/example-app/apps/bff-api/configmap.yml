@@ -28,7 +28,7 @@ data:
             "predicates": [
               {
                 "name": "pathPredicate",
-                "args": ["**"]
+                "args": "/**"
               }
             ],
             "route-pattern": {
@@ -43,7 +43,7 @@ data:
             "predicates": [
               {
                 "name": "pathPredicate",
-                "args": ["**"]
+                "args": "/**"
               }
             ],
             "route-pattern": {
@@ -58,7 +58,7 @@ data:
             "predicates": [
               {
                 "name": "pathPredicate",
-                "args": ["**"]
+                "args": "/**"
               }
             ],
             "route-pattern": {
