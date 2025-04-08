@@ -7,5 +7,5 @@ spec:
     app: or-cst-svc
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 9210
   type: ClusterIP
