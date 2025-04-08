@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: bff-api-config
 data:
-  route-config.json: |
+  route-config.json: >
     {
       "bff": {
         "httpclient": {
