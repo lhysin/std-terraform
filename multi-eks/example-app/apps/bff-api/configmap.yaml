@@ -16,8 +16,8 @@ data:
               "base-url": "http://or-pay-svc.ontrust.svc.cluster.local",
               "response-timeout": "3s"
             },
-            "or-nsr-web": {
-              "base-url": "http://or-nsr-web.ontrust.svc.cluster.local",
+            "or-spp-svc": {
+              "base-url": "http://or-spp-svc.ontrust.svc.cluster.local",
               "response-timeout": "3s"
             }
           }
@@ -54,7 +54,7 @@ data:
             }
           },
           {
-            "id": "or-nsr-web",
+            "id": "or-spp-svc",
             "predicates": [
               {
                 "name": "pathPredicate",
@@ -64,7 +64,7 @@ data:
             "route-pattern": {
               "type": "ROUTE",
               "process": {
-                "client-id": "or-nsr-web"
+                "client-id": "or-spp-svc"
               }
             }
           }
