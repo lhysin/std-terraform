@@ -3,40 +3,71 @@ kind: ConfigMap
 metadata:
   name: bff-api-config
 data:
-  route-config.yml: |
-    bff:
-      httpclient:
-        clients:
-          or-cst-svc:
-            base-url: http://or-cst-svc.ontrust.svc.cluster.local
-            response-timeout: 2s
-          or-pay-svc:
-            base-url: http://or-pay-svc.ontrust.svc.cluster.local
-            response-timeout: 3s
-          or-nsr-web:
-            base-url: http://or-nsr-web.ontrust.svc.cluster.local
-      routes:
-        - id: or-cst-svc
-          predicates:
-            - name: pathPredicate
-              args: /**
-          route-pattern:
-            type: ROUTE
-            process:
-              client-id : or-cst-svc
-        - id: or-pay-svc
-          predicates:
-            - name: pathPredicate
-              args: /**
-          route-pattern:
-            type: ROUTE
-            process:
-              client-id : or-pay-svc
-        - id: or-nsr-web
-          predicates:
-            - name: pathPredicate
-              args: /**
-          route-pattern:
-            type: ROUTE
-            process:
-              client-id : or-nsr-web
+  route-config.json: |
+    {
+      "bff": {
+        "httpclient": {
+          "clients": {
+            "or-cst-svc": {
+              "base-url": "http://or-cst-svc.ontrust.svc.cluster.local",
+              "response-timeout": "2s"
+            },
+            "or-pay-svc": {
+              "base-url": "http://or-pay-svc.ontrust.svc.cluster.local",
+              "response-timeout": "3s"
+            },
+            "or-nsr-web": {
+              "base-url": "http://or-nsr-web.ontrust.svc.cluster.local",
+              "response-timeout": "3s"
+            }
+          }
+        },
+        "routes": [
+          {
+            "id": "or-cst-svc",
+            "predicates": [
+              {
+                "name": "pathPredicate",
+                "args": ["**"]
+              }
+            ],
+            "route-pattern": {
+              "type": "ROUTE",
+              "process": {
+                "client-id": "or-cst-svc"
+              }
+            }
+          },
+          {
+            "id": "or-pay-svc",
+            "predicates": [
+              {
+                "name": "pathPredicate",
+                "args": ["**"]
+              }
+            ],
+            "route-pattern": {
+              "type": "ROUTE",
+              "process": {
+                "client-id": "or-pay-svc"
+              }
+            }
+          },
+          {
+            "id": "or-nsr-web",
+            "predicates": [
+              {
+                "name": "pathPredicate",
+                "args": ["**"]
+              }
+            ],
+            "route-pattern": {
+              "type": "ROUTE",
+              "process": {
+                "client-id": "or-nsr-web"
+              }
+            }
+          }
+        ]
+      }
+    }
