@@ -28,8 +28,20 @@ variable "terraform_state_s3_bucket" {
   default     = "cjo-std-s3-terraform-state"
 }
 
-variable "terraform_state_s3_key" {
-  description = "The path (key) to the specific Terraform state file within the S3 bucket."
+variable "terraform_state_shared_s3_key" {
+  description = "The path (key) to the specific shared Terraform state file within the S3 bucket."
   type        = string
   default     = "multi-eks/shared/std/terraform.tfstate"
+}
+
+variable "terraform_state_mgmt_eks_s3_key" {
+  description = "The path (key) to the specific mgme eks Terraform state file within the S3 bucket."
+  type        = string
+  default     = "multi-eks/mgmt-eks/std/terraform.tfstate"
+}
+
+variable "route53_domain_name" {
+  description = "The domain name to be used for Route 53 hosted zone."
+  type        = string
+  default     = "cjenm-study.com"
 }

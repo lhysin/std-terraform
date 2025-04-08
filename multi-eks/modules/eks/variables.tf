@@ -13,23 +13,38 @@ variable "region" {
   type        = string
 }
 
-variable "eks_suffix_name" {
-  description = "Defines the VPC group for EKS multi-cluster environment."
-  type        = string
-}
-
-variable "terraform_state_s3_bucket" {
-  description = "The name of the S3 bucket where Terraform state files are stored."
-  type        = string
-}
-
-variable "terraform_state_s3_key" {
-  description = "The path (key) to the specific Terraform state file within the S3 bucket."
-  type        = string
-}
-
 variable "k8s_version" {
   description = "Kubernetes version"
+  type        = string
+}
+
+variable "vpc_id" {
+  description = "The VPC ID where the resources will be deployed"
+  type        = string
+}
+
+variable "public_subnets" {
+  description = "List of public subnet IDs for the VPC"
+  type        = list(string)
+}
+
+variable "private_subnets" {
+  description = "List of private subnet IDs for the VPC"
+  type        = list(string)
+}
+
+variable "alb_ingress_sg_id" {
+  description = "The security group ID for the ALB ingress"
+  type        = string
+}
+
+variable "alb_cjenm_only_ingress_sg_id" {
+  description = "The security group ID for the ALB ingress for CJENM Only"
+  type        = string
+}
+
+variable "eks_suffix_name" {
+  description = "Defines the VPC group for EKS multi-cluster environment."
   type        = string
 }
 
@@ -39,8 +54,14 @@ variable "tags" {
 }
 
 variable "route53_domain_name" {
-  description = ""
-  type = string
+  description = "The domain name to be used for Route 53 hosted zone."
+  type        = string
+  default     = "cjenm-study.com"
+}
+
+variable "enable_argocd" {
+  type = bool
+  default = false
 }
 
 variable "enable_ontrust_ingress" {

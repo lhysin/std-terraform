@@ -35,7 +35,7 @@ variable "terraform_state_s3_key" {
 }
 
 variable "route53_domain_name" {
-  description = ""
-  type = string
-  default = "cjenm-study.com"
+  description = "The domain name to be used for Route 53 hosted zone."
+  type        = string
+  default     = "cjenm-study.com"
 }

@@ -1,9 +1,14 @@
 output "eks_kubeconfig_update_command" {
-  value = "aws eks --region ${var.region} update-kubeconfig --name ${module.eks.cluster_name}"
   description = "Command to update kubeconfig for EKS cluster"
+  value = "aws eks --region ${var.region} update-kubeconfig --name ${module.eks.cluster_name}"
 }
 
 output "argocd_admin_password" {
-  value       = "kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 --decode"
   description = "Command to get the ArgoCD initial admin password"
+  value       = "kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 --decode"
+}
+
+output "node_security_group_id" {
+  description = "ID of the node shared security group"
+  value = module.eks.node_security_group_id
 }

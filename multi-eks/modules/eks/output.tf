@@ -32,3 +32,13 @@ output "oidc_provider_arn" {
   description = "The ARN of the OIDC Provider if `enable_irsa = true`"
   value       = module.eks.oidc_provider_arn
 }
+
+output "cluster_primary_security_group_id" {
+  description = "Cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security group for control-plane-to-data-plane communication. Referred to as 'Cluster security group' in the EKS console"
+  value = module.eks.cluster_primary_security_group_id
+}
+
+output "node_security_group_id" {
+  description = "ID of the node shared security group"
+  value = module.eks.node_security_group_id
+}

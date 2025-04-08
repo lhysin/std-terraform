@@ -33,3 +33,9 @@ variable "terraform_state_s3_key" {
   type        = string
   default     = "multi-eks/shared/std/terraform.tfstate"
 }
+
+variable "route53_domain_name" {
+  description = "The domain name to be used for Route 53 hosted zone."
+  type        = string
+  default     = "cjenm-study.com"
+}

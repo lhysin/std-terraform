@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: or-spp-svc
+  labels:
+    app: or-spp-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: or-spp-svc
+  template:
+    metadata:
+      labels:
+        app: or-spp-svc
+    spec:
+      containers:
+        - name: or-spp-svc
+          image: 627500151784.dkr.ecr.ap-northeast-2.amazonaws.com/cjo-std-ecr-ontrust:or-spp-svc
+          ports:
+            - containerPort: 9260

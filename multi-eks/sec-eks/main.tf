@@ -8,18 +8,39 @@ module "vars" {
   phase  = var.phase
 }
 
+data "terraform_remote_state" "shared" {
+  backend = "s3"
+  config = {
+    region  = var.region
+    profile = var.profile
+    bucket  = var.terraform_state_s3_bucket
+    key     = var.terraform_state_s3_key
+  }
+}
+
+locals {
+  vpc_id                       = data.terraform_remote_state.shared.outputs.vpc_id
+  public_subnets               = data.terraform_remote_state.shared.outputs.public_subnets
+  private_subnets              = data.terraform_remote_state.shared.outputs.private_subnets
+  alb_ingress_sg_id            = data.terraform_remote_state.shared.outputs.alb_ingress_sg_id
+  alb_cjenm_only_ingress_sg_id = data.terraform_remote_state.shared.outputs.alb_cjenm_only_ingress_sg_id
+}
+
 module "eks" {
-  source                    = "../modules/eks"
-  k8s_version               = var.k8s_version
-  region                    = var.region
-  profile                   = var.profile
-  terraform_state_s3_bucket = var.terraform_state_s3_bucket
-  terraform_state_s3_key    = var.terraform_state_s3_key
-  service_name_prefix       = module.vars.service_name_prefix
-  tags                      = module.vars.service_tags
-  eks_suffix_name           = "sec"
-  route53_domain_name       = "cjenm-study.com"
-  enable_ontrust_ingress    = true
+  source                       = "../modules/eks"
+  k8s_version                  = var.k8s_version
+  region                       = var.region
+  profile                      = var.profile
+  vpc_id                       = local.vpc_id
+  public_subnets               = local.public_subnets
+  private_subnets              = local.private_subnets
+  alb_cjenm_only_ingress_sg_id = local.alb_cjenm_only_ingress_sg_id
+  alb_ingress_sg_id            = local.alb_ingress_sg_id
+  service_name_prefix          = module.vars.service_name_prefix
+  tags                         = module.vars.service_tags
+  eks_suffix_name              = "sec"
+  route53_domain_name          = var.route53_domain_name
+  enable_ontrust_ingress       = true
 }
 
 provider "kubernetes" {

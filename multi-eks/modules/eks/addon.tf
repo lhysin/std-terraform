@@ -7,12 +7,7 @@ module "mgmt_eks_blueprints_addons" {
   cluster_version   = module.eks.cluster_version
   oidc_provider_arn = module.eks.oidc_provider_arn
 
-#   enable_argocd = true
-#   argocd = {
-#     # https://stackoverflow.com/questions/72903973/how-do-i-add-users-to-argo-cd-using-terraform-resource
-#     "configs.cm.create"            = true
-#     "configs.cm.accounts.new-user" = "apiKey, login"
-#   }
+  enable_argocd = var.enable_argocd
 
   enable_aws_cloudwatch_metrics = true
   enable_metrics_server         = true
@@ -34,20 +29,18 @@ module "mgmt_eks_blueprints_addons" {
 
   # enable_cert_manager = true
   # cert_manager_route53_hosted_zone_arns = [data.aws_route53_zone.target_hosted_zone.arn]
-  #
-  #   enable_external_dns = true
-  #   external_dns_route53_zone_arns = [data.aws_route53_zone.target_hosted_zone.arn]
 
-  #   helm_releases = {
-  #     kubecost = {
-  #       name             = "kubecost"
-  #       namespace        = "kubecost"
-  #       create_namespace = true
-  #       repository       = "https://kubecost.github.io/cost-analyzer"
-  #       chart            = "kubecost/cost-analyzer"
-  #       version          = "2.6.5"
-  #     }
-  #   }
+  enable_external_dns = true
+  external_dns_route53_zone_arns = [data.aws_route53_zone.target_hosted_zone.arn]
+#   external_dns = {
+#     set = [
+#       {
+#         # alb 생명 주기와 route53 a레코드 생명 주기 싱크
+#         name  = "policy"
+#         value = "sync"
+#       }
+#     ]
+#   }
 
   depends_on = [
     module.eks

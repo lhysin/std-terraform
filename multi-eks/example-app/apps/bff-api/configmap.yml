@@ -7,58 +7,36 @@ data:
     bff:
       httpclient:
         clients:
-          test1:
-            base-url: http://demo2409875.mockable.io
+          or-cst-svc:
+            base-url: http://or-cst-svc.ontrust.svc.cluster.local
             response-timeout: 2s
-          test2:
-            base-url: http://demo2409875.mockable.io
+          or-pay-svc:
+            base-url: http://or-pay-svc.ontrust.svc.cluster.local
             response-timeout: 3s
-          test3:
-            base-url: http://demo2409875.mockable.io
-
+          or-nsr-web:
+            base-url: http://or-nsr-web.ontrust.svc.cluster.local
       routes:
-        - id: a-service
-          predicates:
-            - name: methodPredicate
-              args: GET
-            - name: pathPredicate
-              args: /v3/**
-          route-pattern:
-            type: COMPOSITION
-            composition:
-              sources:
-                - name: bbb-service
-                  client-id: test2
-                  method: GET
-                  uri: /v3/test2/item/12300002
-                - name: aaa-service
-                  client-id: test1
-                  method: GET
-                  uri: /v3/test1
-
-        - id: b-service
+        - id: or-cst-svc
           predicates:
             - name: pathPredicate
-              args: /v2/**
+              args: /**
           route-pattern:
             type: ROUTE
             process:
-              client-id : test1
-
-        - id: c-service
+              client-id : or-cst-svc
+        - id: or-pay-svc
           predicates:
             - name: pathPredicate
-              args: /v3/custom/**
+              args: /**
           route-pattern:
-            type: CUSTOM
-            custom:
-              custom-handler: customProcessHandler
-
-        - id: d-service
+            type: ROUTE
+            process:
+              client-id : or-pay-svc
+        - id: or-nsr-web
           predicates:
             - name: pathPredicate
-              args: /v1/custom/**
+              args: /**
           route-pattern:
-            type: CUSTOM
-            custom:
-              custom-handler: customProcessHandler2
+            type: ROUTE
+            process:
+              client-id : or-nsr-web
