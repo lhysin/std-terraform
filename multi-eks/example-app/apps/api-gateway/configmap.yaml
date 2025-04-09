@@ -32,7 +32,7 @@ data:
           "web-application-type": "reactive"
         },
         "config": {
-          "import": "configserver:http://www.naver.com"
+          "import": "configserver:http://config-api.ontrust.svc.cluster.local"
         },
         "cloud": {
           "config": {
