@@ -16,7 +16,7 @@ data:
                 "password": "",
                 "skip-ssl-validation": true,
                 "force-pull": true,
-                "default-label": "master"
+                "default-label": "main"
               }
             }
           }
