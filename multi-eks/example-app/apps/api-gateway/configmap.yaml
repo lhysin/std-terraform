@@ -6,8 +6,16 @@ data:
   config.json: >
     {
       "spring": {
+        "profiles": {
+          "active": "dev"
+        },
         "config": {
           "import": "configserver:http://config-api.ontrust.svc.cluster.local"
+        },
+        "cloud": {
+          "config": {
+            "label": "main"
+          }
         }
       }
     }
