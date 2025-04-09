@@ -6,14 +6,11 @@ data:
   config.json: >
     {
       "spring": {
-        "application": {
-          "name": "test-api"
-        },
         "profiles": {
           "active": "dev"
         },
         "config": {
-          "import": "configserver:https://www.naver.com"
+          "import": "configserver:http://config-api.ontrust.svc.cluster.local"
         },
         "cloud": {
           "config": {
