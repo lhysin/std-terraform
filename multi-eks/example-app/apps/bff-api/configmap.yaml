@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: bff-api-config
 data:
-  spring.json: >
+  spring.json: |
     {
       "bff": {
         "httpclient": {
