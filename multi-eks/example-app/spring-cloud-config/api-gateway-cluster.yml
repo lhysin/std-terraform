@@ -39,7 +39,7 @@ spring:
         - id: or-cst-svc
           uri: http://or-cst-svc.ontrust.svc.cluster.local
           predicates:
-            - Path=/or-pay-svc/**
+            - Path=/or-cst-svc/**
           filters:
             - RewritePath= /(?<path>.*), /$\{path}
             #            - RemoveRequestHeader=Authorization

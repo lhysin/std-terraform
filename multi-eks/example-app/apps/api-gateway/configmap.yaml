@@ -80,9 +80,9 @@ data:
           "name": "${spring.application.name}"
         },
         "level": {
-          "root": "debug",
+          "root": "info",
           "org.springframework.cloud": "debug",
-          "org.springframework.cloud.gateway": "debug",
+          "comment.org.springframework.cloud.gateway": "debug",
           "org.springframework.boot.actuate": "debug",
           "reactor.netty.http.client": "debug"
         }
