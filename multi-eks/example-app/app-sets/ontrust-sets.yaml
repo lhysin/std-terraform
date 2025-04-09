@@ -21,7 +21,7 @@ spec:
         path: "multi-eks/example-app/apps/{{path.basename}}"
       destination:
         #server: https://kubernetes.default.svc
-        server: https://FDC256F8EE778F859939CE76EC896DF2.gr7.ap-northeast-2.eks.amazonaws.com
+        server: https://48EA81758C84BC9054CCF2A7B75A551B.gr7.ap-northeast-2.eks.amazonaws.com
         namespace: ontrust
       syncPolicy:
         automated:
