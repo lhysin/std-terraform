@@ -4,18 +4,18 @@ metadata:
   name: api-gateway-config
 data:
   config.json: >
-    {
-      "spring": {
-        "profiles": {
-          "active": "dev"
-        },
-        "config": {
-          "import": "configserver:http://config-api.ontrust.svc.cluster.local"
-        },
-        "cloud": {
-          "config": {
-            "label": "main"
-          }
-        }
-      }
-    }
+#    {
+#      "spring": {
+#        "profiles": {
+#          "active": "dev"
+#        },
+#        "config": {
+#          "import": "configserver:http://config-api.ontrust.svc.cluster.local"
+#        },
+#        "cloud": {
+#          "config": {
+#            "label": "main"
+#          }
+#        }
+#      }
+#    }
