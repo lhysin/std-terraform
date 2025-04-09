@@ -20,9 +20,8 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: spring.application.json
-              value: "{\"spring\":{\"profiles\":{\"active\":\"dev\"},\"config\":{\"import\":\"configserver:http://config-api.ontrust.svc.cluster.local\"},\"cloud\":{\"config\":{\"label\":\"main\"}}}}"
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: api-gateway-config
-#                  key: config.json
+            - name: SPRING_APPLICATION_JSON
+              valueFrom:
+                configMapKeyRef:
+                  name: api-gateway-config
+                  key: config.json

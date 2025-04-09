@@ -6,6 +6,9 @@ data:
   config.json: >
     {
       "spring": {
+        "application": {
+          "name": "test-api"
+        },
         "profiles": {
           "active": "dev"
         },
