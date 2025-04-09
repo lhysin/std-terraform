@@ -13,7 +13,7 @@ data:
           "active": "dev"
         },
         "config": {
-          "import": "configserver:http://config-api.ontrust.svc.cluster.local"
+          "import": "configserver:https://www.naver.com"
         },
         "cloud": {
           "config": {
