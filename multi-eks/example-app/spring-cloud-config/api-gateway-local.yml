@@ -15,7 +15,7 @@ spring:
 
       routes:
         - id: a-service
-          uri: https://demo2409875.mockable.io
+          uri: https://www.naver.com
           predicates:
             - Path=/a-service/v2/**
           filters:
