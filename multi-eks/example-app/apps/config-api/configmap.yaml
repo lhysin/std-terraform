@@ -6,9 +6,6 @@ data:
   spring.json: >
     {
       "spring": {
-        "profiles": {
-          "active": "dev"
-        },
         "cloud": {
           "config": {
             "server": {
