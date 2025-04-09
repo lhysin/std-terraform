@@ -21,7 +21,8 @@ spec:
             - containerPort: 8080
           env:
             - name: SPRING_APPLICATION_JSON
-              valueFrom:
-                configMapKeyRef:
-                  name: api-gateway-config
-                  key: config.json
+              value: "{\"spring\": {\"config\": {\"import\": \"configserver:http://config-api.ontrust.svc.cluster.local\"}}}"
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: api-gateway-config
+#                  key: config.json
