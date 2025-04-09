@@ -26,7 +26,7 @@ data:
           "timeout-per-shutdown-phase": "20s"
         },
         "profiles": {
-          "active": "cluster"
+          "active": "mock"
         },
         "main": {
           "web-application-type": "reactive"
