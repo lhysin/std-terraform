@@ -36,7 +36,6 @@ data:
         },
         "cloud": {
           "config": {
-            "uri": "http://config-api.ontrust.svc.cluster.local",
             "fail-fast": true,
             "retry": {
               "max-attempts": 5,
@@ -66,6 +65,12 @@ data:
                 "acquire-timeout": 60000
               }
             }
+          }
+        },
+        "security": {
+          "user": {
+            "name": "develop",
+            "password": "ENC(UY793uXEygXR9P51fcN5owurR893IiqPCfOKgGlD9sym0tG6ITBf1RRa0FBRfeGm9jDp/bcyC8Vq/Xrd9lZMzw==)"
           }
         }
       },
