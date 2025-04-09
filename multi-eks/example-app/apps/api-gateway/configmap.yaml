@@ -8,11 +8,6 @@ data:
       "spring": {
         "config": {
           "import": "configserver:http://config-api.ontrust.svc.cluster.local"
-        },
-        "cloud": {
-          "config": {
-            "uri": "http://config-api.ontrust.svc.cluster.local"
-          }
         }
       }
     }
