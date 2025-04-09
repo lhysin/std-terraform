@@ -80,7 +80,7 @@ data:
           "name": "${spring.application.name}"
         },
         "level": {
-          "root": "info",
+          "root": "debug",
           "org.springframework.cloud": "debug",
           "reactor.netty.http.client": "debug"
         }
