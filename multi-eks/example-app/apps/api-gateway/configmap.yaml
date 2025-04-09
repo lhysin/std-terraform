@@ -7,14 +7,7 @@ data:
     {
       "spring": {
         "config": {
-          "import": [
-            "configserver:http://config-api.ontrust.svc.cluster.local"
-          ]
-        },
-        "cloud": {
-          "config": {
-            "label": "main"
-          }
+          "import": "configserver:http://config-api.ontrust.svc.cluster.local"
         }
       }
     }
