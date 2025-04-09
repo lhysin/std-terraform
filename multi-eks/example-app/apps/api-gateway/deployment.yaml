@@ -24,4 +24,4 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: api-gateway-config
-                  key:  api-gateway-config.json
+                  key:  spring.json
