@@ -36,7 +36,7 @@ data:
         },
         "cloud": {
           "config": {
-            "fail-fast": true,
+            "fail-fast": false,
             "retry": {
               "max-attempts": 5,
               "initial-interval": 1000,
