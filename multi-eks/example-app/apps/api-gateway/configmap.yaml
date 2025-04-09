@@ -82,6 +82,8 @@ data:
         "level": {
           "root": "debug",
           "org.springframework.cloud": "debug",
+          "org.springframework.cloud.gateway": "debug",
+          "org.springframework.boot.actuate": "debug",
           "reactor.netty.http.client": "debug"
         }
       },
