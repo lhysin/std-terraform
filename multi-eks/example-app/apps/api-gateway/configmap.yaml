@@ -66,12 +66,6 @@ data:
               }
             }
           }
-        },
-        "security": {
-          "user": {
-            "name": "develop",
-            "password": "ENC(UY793uXEygXR9P51fcN5owurR893IiqPCfOKgGlD9sym0tG6ITBf1RRa0FBRfeGm9jDp/bcyC8Vq/Xrd9lZMzw==)"
-          }
         }
       },
       "logging": {
