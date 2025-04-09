@@ -6,11 +6,14 @@ data:
   spring.json: >
     {
       "spring": {
+        "profiles": {
+          "active": "dev"
+        },
         "cloud": {
           "config": {
             "server": {
               "git": {
-                "uri": "https://",
+                "uri": "https://github.com/lhysin/std-terraform",
                 "searchPaths" : "multi-eks/example-app/spring-cloud-config",
                 "username": "",
                 "password": "",
