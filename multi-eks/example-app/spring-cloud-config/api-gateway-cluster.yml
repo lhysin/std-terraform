@@ -14,23 +14,34 @@ spring:
           max-life-time: 5s
 
       routes:
-        - id: a-service
-          uri: https://www.naver.com
+        - id: or-pay-svc
+          uri: http://or-pay-svc.ontrust.svc.cluster.local
           predicates:
-            - Path=/a-service/v2/**
+            - Path=/or-pay-svc/**
           filters:
-            - RewritePath= /a-service/(?<path>.*), /$\{path}
+            - RewritePath= /(?<path>.*), /$\{path}
           #           - RemoveRequestHeader=Authorization
           metadata: # route 별 timeout 설정(ms)
             connect-timeout: 2000
             response-timeout: 5000
 
-        - id: b-service
-          uri: https://demo2409875.mockable.io
+        - id: or-spp-svc
+          uri: http://or-spp-svc.ontrust.svc.cluster.local
           predicates:
-            - Path=/b-service/v2/**
+            - Path=/or-spp-svc/**
           filters:
-            - RewritePath= /b-service/(?<path>.*), /$\{path}
+            - RewritePath= /(?<path>.*), /$\{path}
+          #           - RemoveRequestHeader=Authorization
+          metadata: # route 별 timeout 설정(ms)
+            connect-timeout: 2000
+            response-timeout: 5000
+
+        - id: or-cst-svc
+          uri: http://or-cst-svc.ontrust.svc.cluster.local
+          predicates:
+            - Path=/or-pay-svc/**
+          filters:
+            - RewritePath= /(?<path>.*), /$\{path}
             #            - RemoveRequestHeader=Authorization
             - name : Retry #재시도 설정 필터
               args:
