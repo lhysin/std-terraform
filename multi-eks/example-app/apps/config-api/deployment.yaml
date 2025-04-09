@@ -24,4 +24,4 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: config-api-config
-                  key: spring.json
+                  key: config.json

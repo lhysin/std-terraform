@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: config-api-config
 data:
-  spring.json: >
+  config.json: >
     {
       "spring": {
         "cloud": {

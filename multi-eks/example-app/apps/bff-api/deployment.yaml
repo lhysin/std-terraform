@@ -24,4 +24,4 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: bff-api-config
-                  key: spring.json
+                  key: config.json
