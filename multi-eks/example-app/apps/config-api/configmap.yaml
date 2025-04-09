@@ -10,9 +10,10 @@ data:
           "config": {
             "server": {
               "git": {
-                "uri": "https://",
-                "username": "-",
-                "password": "-",
+                "uri": "https://github.com/lhysin/std-terraform",
+                "searchPaths" : "multi-eks/example-app/spring-cloud-config",
+                "username": "",
+                "password": "",
                 "skip-ssl-validation": true,
                 "force-pull": true,
                 "default-label": "master"
