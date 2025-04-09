@@ -50,8 +50,10 @@ resource "kubernetes_ingress_v1" "ontrust_ingress" {
 
           backend {
             service {
-              # 최초 진입 서비스는 bff-api
-              name = "bff-api"
+#               # 최초 진입 서비스는 bff-api
+#               name = "bff-api"
+              # 최초 진입 서비스는 api-gateway
+              name = "api-gateway"
               port {
                 number = 80
               }
