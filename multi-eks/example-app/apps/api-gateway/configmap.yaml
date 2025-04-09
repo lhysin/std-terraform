@@ -36,6 +36,7 @@ data:
         },
         "cloud": {
           "config": {
+            "uri": "http://config-api.ontrust.svc.cluster.local",
             "fail-fast": true,
             "retry": {
               "max-attempts": 5,
