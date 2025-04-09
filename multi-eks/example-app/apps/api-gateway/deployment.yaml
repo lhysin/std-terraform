@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway
+  name: api-gateway2
   labels:
-    app: api-gateway
+    app: api-gateway2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gateway
+      app: api-gateway2
   template:
     metadata:
       labels:
-        app: api-gateway
+        app: api-gateway2
     spec:
       containers:
-        - name: api-gateway
+        - name: api-gateway2
           image: 627500151784.dkr.ecr.ap-northeast-2.amazonaws.com/cjo-std-ecr-ontrust:api-gateway
           ports:
             - containerPort: 8080
