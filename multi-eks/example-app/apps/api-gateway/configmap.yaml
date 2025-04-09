@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: api-gateway-config
+  name: api-gateway-configaa
 data:
-  spring.json: >ㅁㄴㅇ
+  spring.json: >
     {
       "spring": {
         "config": {
