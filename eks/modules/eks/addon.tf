@@ -1,4 +1,6 @@
-module "mgmt_eks_blueprints_addons" {
+# https://github.com/aws-ia/terraform-aws-eks-blueprints-addons/blob/main/tests/complete/main.tf
+
+module "eks_blueprints_addons" {
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.20.0"
 
@@ -32,15 +34,15 @@ module "mgmt_eks_blueprints_addons" {
 
   enable_external_dns = true
   external_dns_route53_zone_arns = [data.aws_route53_zone.target_hosted_zone.arn]
-#   external_dns = {
-#     set = [
-#       {
-#         # alb 생명 주기와 route53 a레코드 생명 주기 싱크
-#         name  = "policy"
-#         value = "sync"
-#       }
-#     ]
-#   }
+  #   external_dns = {
+  #     set = [
+  #       {
+  #         # alb 생명 주기와 route53 a레코드 생명 주기 싱크
+  #         name  = "policy"
+  #         value = "sync"
+  #       }
+  #     ]
+  #   }
 
   depends_on = [
     module.eks

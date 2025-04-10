@@ -49,8 +49,8 @@ module "eks" {
   tags                         = module.vars.service_tags
   eks_suffix_name              = "single"
   route53_domain_name          = var.route53_domain_name
-  enable_argocd                = true
-  enable_ontrust_ingress       = true
+  enable_argocd                = false
+  enable_ontrust_ingress       = false
 
   depends_on = [
     module.vpc,

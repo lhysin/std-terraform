@@ -55,6 +55,6 @@ resource "kubernetes_ingress_v1" "argocd_ingress" {
   }
 
   depends_on = [
-    module.mgmt_eks_blueprints_addons,
+    module.eks_blueprints_addons,
   ]
 }
