@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ontrust-application-sets
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/lhysin/std-terraform.git
+        revision: HEAD
+        directories:
+          - path: eks/example-app/apps/*
+  template:
+    metadata:
+      name: "{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/lhysin/std-terraform.git
+        targetRevision: HEAD
+        path: "eks/example-app/apps/{{path.basename}}"
+      destination:
+        #server: https://kubernetes.default.svc
+        server: https://48EA81758C84BC9054CCF2A7B75A551B.gr7.ap-northeast-2.eks.amazonaws.com
+        namespace: ontrust
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+# kubectl apply -f https://raw.githubusercontent.com/lhysin/std-terraform/refs/heads/main/multi-eks/example-app/app-sets/ontrust-sets.yaml
+# kubectl apply -f ontrust-sets.yaml
+# kubectl delete -f ontrust-sets.yaml

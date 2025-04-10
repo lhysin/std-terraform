@@ -1,0 +1,73 @@
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: bff-api-config
+#data:
+#  config.json: >
+#    {
+#      "bff": {
+#        "httpclient": {
+#          "clients": {
+#            "or-cst-svc": {
+#              "base-url": "http://or-cst-svc.ontrust.svc.cluster.local",
+#              "response-timeout": "2s"
+#            },
+#            "or-pay-svc": {
+#              "base-url": "http://or-pay-svc.ontrust.svc.cluster.local",
+#              "response-timeout": "3s"
+#            },
+#            "or-spp-svc": {
+#              "base-url": "http://or-spp-svc.ontrust.svc.cluster.local",
+#              "response-timeout": "3s"
+#            }
+#          }
+#        },
+#        "routes": [
+#          {
+#            "id": "or-cst-svc",
+#            "predicates": [
+#              {
+#                "name": "pathPredicate",
+#                "args": "/**"
+#              }
+#            ],
+#            "route-pattern": {
+#              "type": "ROUTE",
+#              "process": {
+#                "client-id": "or-cst-svc"
+#              }
+#            }
+#          },
+#          {
+#            "id": "or-pay-svc",
+#            "predicates": [
+#              {
+#                "name": "pathPredicate",
+#                "args": "/**"
+#              }
+#            ],
+#            "route-pattern": {
+#              "type": "ROUTE",
+#              "process": {
+#                "client-id": "or-pay-svc"
+#              }
+#            }
+#          },
+#          {
+#            "id": "or-spp-svc",
+#            "predicates": [
+#              {
+#                "name": "pathPredicate",
+#                "args": "/**"
+#              }
+#            ],
+#            "route-pattern": {
+#              "type": "ROUTE",
+#              "process": {
+#                "client-id": "or-spp-svc"
+#              }
+#            }
+#          }
+#        ]
+#      }
+#    }

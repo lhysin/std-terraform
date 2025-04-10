@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-api-config
+data:
+  config.json: >
+    {
+      "server": {
+        "port": 8888,
+        "shutdown": "graceful",
+        "compression": {
+          "enabled": true,
+          "min-response-size": 1
+        },
+        "error": {
+          "whitelabel": {
+            "enabled": false
+          }
+        }
+      },
+      "spring": {
+        "application": {
+          "name": "config-api"
+        },
+        "lifecycle": {
+          "timeout-per-shutdown-phase": "20s"
+        },
+        "profiles": {
+          "active": "local"
+        },
+        "cloud": {
+          "config": {
+            "server": {
+              "git": {
+                "uri": "https://github.com/lhysin/std-terraform",
+                "searchPaths" : "eks/example-app/spring-cloud-config",
+                "username": "",
+                "password": "",
+                "skip-ssl-validation": true,
+                "force-pull": true,
+                "default-label": "main"
+              }
+            }
+          }
+        }
+      },
+      "management": {
+        "endpoints": {
+          "web": {
+            "exposure": {
+              "include": [
+                "info",
+                "env",
+                "refresh",
+                "health",
+                "metrics"
+              ]
+            },
+            "base-path": "/management/path",
+            "discovery": {
+              "enabled": true
+            }
+          }
+        },
+        "endpoint": {
+          "health": {
+            "show-details": "always",
+            "access": "read_only"
+          }
+        }
+      },
+      "logging": {
+        "config": "classpath:logback-spring.xml",
+        "file": {
+          "name": "${spring.application.name}"
+        }
+      }
+    }
