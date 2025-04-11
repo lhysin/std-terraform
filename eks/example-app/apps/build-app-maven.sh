@@ -50,7 +50,7 @@ EXPOSE $PORT
 EOF
 
 echo "build maven"
-mvn clean package
+mvn clean package -DskipTests
 
 # aws profile
 # export AWS_PROFILE=

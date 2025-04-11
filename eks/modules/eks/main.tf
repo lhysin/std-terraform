@@ -76,14 +76,14 @@ module "eks" {
 
   # 관리 클러스터는 노드 그룹을 적게 둠
   eks_managed_node_groups = {
-    "${var.service_name_prefix}-on-demand" = {
-      ami_type      = "AL2_ARM_64"
-      instance_types = ["t4g.small"]
-      capacity_type = "ON_DEMAND"
-      min_size      = 1
-      max_size      = 1
-      desired_size  = 1
-    }
+#     "${var.service_name_prefix}-on-demand" = {
+#       ami_type      = "AL2_ARM_64"
+#       instance_types = ["t4g.small"]
+#       capacity_type = "ON_DEMAND"
+#       min_size      = 1
+#       max_size      = 1
+#       desired_size  = 1
+#     }
     "${var.service_name_prefix}-spot" = {
       # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
 #       ami_type      = "AL2023_x86_64_STANDARD"
@@ -92,9 +92,9 @@ module "eks" {
       instance_types = ["t4g.medium"]
       # ON_DEMAND(default), SPOT
       capacity_type = "SPOT"
-      min_size      = 1
+      min_size      = 2
       max_size      = 4
-      desired_size  = 2
+      desired_size  = 3
     }
   }
 

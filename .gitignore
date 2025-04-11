@@ -49,3 +49,4 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .terraform
 /k3d/local/terraform.tfstate
+/k3d/local/terraform.tfstate.backup

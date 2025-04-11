@@ -1,8 +1,8 @@
-# k3d in local with Terraform
+# k3d with Terraform locally
 
 <br>
 
-## pre installation
+## 사전 설치
 
 ---
 

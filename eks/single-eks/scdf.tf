@@ -11,30 +11,25 @@ resource "kubernetes_storage_class" "gp3" {
   storage_provisioner = "kubernetes.io/aws-ebs"
 }
 
-resource "helm_release" "spring_cloud_dataflow" {
-  name       = "scdf"
-  repository = "oci://registry-1.docker.io/bitnamicharts"
-  chart      = "spring-cloud-dataflow"
-  version    = "35.0.2"
+# resource "helm_release" "spring_cloud_dataflow" {
+#   name       = "scdf-server"
+#   repository = "oci://registry-1.docker.io/bitnamicharts"
+#   chart      = "spring-cloud-dataflow"
+#   version    = "35.0.2"
+#
+#   values = [
+#     <<-EOT
+#     global:
+#       defaultStorageClass: gp3
+#     metrics:
+#       enabled: true
+#     EOT
+#   ]
+#
+#   depends_on = [
+#     kubernetes_storage_class.gp3
+#   ]
+# }
 
-  values = [
-#     {
-#       global = {
-#         defaultStorageClass = gp3
-#       },
-#       metrics = {
-#         enabled = true
-#       }
-#     }
-      <<-EOT
-      global:
-        defaultStorageClass: gp3
-      metrics:
-        enabled: true
-      EOT
-  ]
-
-  depends_on = [
-    kubernetes_storage_class.gp3
-  ]
-}
+# helm install scdf-server bitnami/spring-cloud-dataflow --version 35.0.2 \
+# --set global.defaultStorageClass=gp3
