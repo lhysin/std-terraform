@@ -64,7 +64,7 @@ module "ecs_frontweb_service" {
 
   load_balancer = {
     service = {
-      target_group_arn = module.alb.target_groups[local.ecs_frontweb_service_name].arn
+      target_group_arn = module.alb.target_groups[local.frontweb_target_group_name].arn
       container_name   = local.ecs_frontweb_container_name
       container_port   = local.ecs_frontweb_container_port
     }
@@ -88,6 +88,10 @@ module "ecs_frontweb_service" {
       cidr_blocks = ["0.0.0.0/0"]
     }
   }
+
+  security_group_tags = local.tags
+  security_group_name = "${var.phase}-${var.project}-ecs-svc-sg-frontweb"
+  security_group_description = "Security group for ${var.phase}-${var.project} ECS Frontweb Service"
 
   tags = local.tags
 }
@@ -166,6 +170,10 @@ module "ecs_api_service" {
       cidr_blocks = ["0.0.0.0/0"]
     }
   }
+
+  security_group_tags = local.tags
+  security_group_name = "${var.phase}-${var.project}-ecs-svc-sg-apiserver"
+  security_group_description = "Security group for ${var.phase}-${var.project} ECS Apiverser Service"
 
   tags = local.tags
 }
