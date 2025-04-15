@@ -56,10 +56,10 @@ module "alb" {
 
 
       rules = {
-        ex-weighted-forward = {
+        frontweb-host-forward = {
           priority = 1000
           actions = [{
-            type = "weighted-forward"
+            type = "forward"
             target_groups = [
               {
                 target_group_key = local.ecs_frontweb_service_name
@@ -73,9 +73,8 @@ module "alb" {
           }]
 
           conditions = [{
-            query_string = {
-              key   = "weighted"
-              value = "true"
+            host_header = {
+              values = ["foobar.com"]
             }
           }]
         }
