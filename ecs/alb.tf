@@ -58,27 +58,22 @@ module "alb" {
       rules = {
         frontweb-host-forward = {
           priority = 1000
-          actions = [{
-            type = "forward"
-            target_groups = [
-              {
-                target_group_key = local.ecs_frontweb_service_name
-                weight           = 1
-              }
-            ]
-            stickiness = {
-              enabled  = true
-              duration = 3600
-            }
-          }]
 
           conditions = [{
             host_header = {
               values = ["foobar.com"]
             }
           }]
+
+          actions = [{
+            type = "forward"
+            target_group_key = local.ecs_frontweb_service_name
+          }]
         }
       }
+
+
+
       forward = {
         target_group_key = local.ecs_frontweb_service_name
       }
@@ -91,19 +86,19 @@ module "alb" {
       backend_protocol                  = "HTTP"
       backend_port                      = local.ecs_frontweb_container_port
       target_type                       = "ip"
-      deregistration_delay              = 5
+      deregistration_delay              = 300
       load_balancing_cross_zone_enabled = true
 
       health_check = {
         enabled             = true
         healthy_threshold   = 5
         interval            = 30
-        matcher             = "200"
-        path                = "/login"
+        matcher             = "200,302"
+        path                = "/"
         port                = "traffic-port"
         protocol            = "HTTP"
         timeout             = 5
-        unhealthy_threshold = 2
+        unhealthy_threshold = 5
       }
 
       # There's nothing to attach here in this definition. Instead,
